@@ -1,0 +1,39 @@
+"use strict";
+
+const moviePlanets = async function(movieNum) {
+    let url = 'https://swapi.co/api/films/';
+    try {
+        if (isNaN(movieNum)) {
+            throw "You must pass in number."
+        }
+
+        let movieObj = await $.getJSON(url + movieNum + '/');
+
+        console.log(movieObj.title);
+
+        let promises = movieObj.planets.map(url => $.getJSON(url));
+
+        for await (let pl of promises) {
+            console.log(pl.name)
+        };
+    } catch(e) {
+        console.error(e);
+    }
+    
+};
+
+/*const moviePlanets = function(movieNum) {
+    let url = 'https://swapi.co/api/films/';
+
+    $.getJSON(url + movieNum + '/')
+    .then(function(response) {
+        console.log(response.title);
+
+        response.planets.forEach(p => $.getJSON(p).then(pl => console.log(pl.name)));
+    })
+    .catch(reject => console.log(`Couldn't retrieve films: ${reject}`));
+};*/
+
+moviePlanets('one');
+
+console.log("Remaining Code")
