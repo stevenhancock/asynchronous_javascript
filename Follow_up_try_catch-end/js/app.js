@@ -1,7 +1,7 @@
 "use strict";
 
 const moviePlanets = async function(movieNum) {
-    let url = 'https://swapi.co/api/films/';
+    let url = 'https://swapi.dev/api/films/';
     try {
         if (isNaN(movieNum)) {
             throw "You must pass in number."
@@ -23,7 +23,7 @@ const moviePlanets = async function(movieNum) {
 };
 
 /*const moviePlanets = function(movieNum) {
-    let url = 'https://swapi.co/api/films/';
+    let url = 'https://swapi.dev/api/films/';
 
     $.getJSON(url + movieNum + '/')
     .then(function(response) {

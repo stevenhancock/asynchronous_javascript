@@ -1,7 +1,7 @@
 "use strict";
 
 const swapiFilms = async function() {
-    let url = "https://swapi.co/api/films/",
+    let url = "https://swapi.dev/api/films/",
         filmsData = {},
         films = [];
 
