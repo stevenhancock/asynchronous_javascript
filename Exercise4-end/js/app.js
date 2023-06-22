@@ -6,22 +6,18 @@ var MAINAPP = (function(nsp) {
     /*
     Change this code so that it uses Promise.all to respond once all of the promises have returned. Provide a notification to the console when the promises have completed.
     */
-    fetch(url + 'posts/')
-    .then(response1 => response1.json())
-    .then(posts => nsp.posts = posts)
-    .catch(err => console.log(`Problem retrieving posts: ${err}`));
+    let p1 = fetch(url + 'posts/').then(response1 => response1.json()),
+        p2 = fetch(url + 'comments/').then(response2 => response2.json()),
+        p3 = fetch(url + 'todos/').then(response3 => response3.json());
 
-    fetch(url + 'comments/')
-    .then(response2 => response2.json())
-    .then(comments => nsp.comments = comments)
-    .catch(err => console.log(`Problem retrieving comments: ${err}`));
-
-    fetch(url + 'todos/')
-    .then(response3 => response3.json())
-    .then(todos => nsp.todos = todos)
-    .catch(err => console.log(`Problem retrieving todos: ${err}`));
-
-    
+    Promise.all([p1, p2, p3])
+    .then(msg => {
+        nsp.posts = msg[0];
+        nsp.comments = msg[1];
+        nsp.todos = msg[2];
+        console.log("We have received the data!");
+    })
+    .catch(err => console.log(`Problem retrieving data: ${err}`));
 
     //public
     return nsp;
